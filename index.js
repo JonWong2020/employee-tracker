@@ -1,5 +1,6 @@
+require('console.table');
 const inquirer = require('inquirer');
-const connection = require('./config/connection');
+const dbRender = require('./libs/db-render');
 
 const getOptionsInfo = async () => {
     return prompt ({
@@ -42,3 +43,19 @@ const getOptionsInfo = async () => {
         ]
     });
 };
+
+const init = async () => {
+    while (true) {
+        const option = (await getOptionsInfo()).option;
+
+        if (option === 'exit') {
+            console.log('Goodbye.')
+            return;
+        }
+
+        const renderOption = dbRender[option];
+        if (renderOption) await renderOption();
+    }
+}
+
+init();
