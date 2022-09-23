@@ -145,5 +145,5 @@ module.exports = {
     addDepartmentOption,
     addRoleOption,
     addEmployeeOption,
-    updateEmployeeRole
+    updateEmployeeRoleOption
 }
