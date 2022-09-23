@@ -1,5 +1,5 @@
 require('console.table');
-const inquirer = require('inquirer');
+const {prompt} = require('inquirer');
 const dbRender = require('./libs/db-render');
 
 const getOptionsInfo = async () => {
@@ -22,19 +22,19 @@ const getOptionsInfo = async () => {
             },
             {
                 name: "Add a Department",
-                value: "addDepartment"
+                value: "addDepartmentOption"
             },
             {
                 name: "Add a Role",
-                value: "addRole"
+                value: "addRoleOption"
             },
             {
                 name: "Add an Employee",
-                value: "addEmployee"
+                value: "addEmployeeOption"
             },
             {
                 name: "Update Employee Role",
-                value: "updateEmployeeRole"
+                value: "updateEmployeeRoleOption"
             },
             {
                 name: "Exit",
@@ -46,10 +46,11 @@ const getOptionsInfo = async () => {
 
 const init = async () => {
     while (true) {
-        const option = (await getOptionsInfo()).option;
+        
+        const {option} = (await getOptionsInfo());
 
         if (option === 'exit') {
-            console.log('Goodbye.')
+            console.log('Goodbye.');
             return;
         }
 
