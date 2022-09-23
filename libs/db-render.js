@@ -4,7 +4,9 @@ const {
     getAllRoles,
     getAllEmployees,
     addDepartment,
-    addRole
+    addRole,
+    addEmployee,
+    updateEmployeeRole,
 } = require('./db-query');
 
 const viewDepartments = async () =>
@@ -58,10 +60,55 @@ const addRoleOption = async () => {
     await viewRoles();
 };
 
+const addEmployeeOption = async () => {
+    
+    const roles = (await getAllRoles()).map(role => ({
+        name: role.title,
+        value: role.id,
+    }));
+
+    const managers = (await getAllEmployees()).map(employee => ({
+        name: employee.first_name + ' ' + employee.last_name,
+        value: employee.id,
+    }));
+
+    const {
+        roleOption,
+        manager,
+        firstName,
+        lastName,
+    } = await prompt([
+        {
+            name: 'firstName',
+            message: "Enter the employee's first name:",
+        },
+        {
+            name: 'lastName',
+            message: "Enter the employee's last name:",
+        },
+        {
+            type: 'list',
+            name: 'roleOption',
+            message: 'Enter employee role:',
+            choices: roles
+        },
+        {
+            type: 'list',
+            name: 'manager',
+            message: 'Select a manager for the employee:',
+            choices: managers
+        }
+    ]);
+
+    await addEmployee([firstName, lastName, roleOption, manager]);
+    await viewEmployees();
+};
+
 module.exports = {
     viewDepartments,
     viewEmployees,
     viewRoles,
     addDepartmentOption,
     addRoleOption,
+    addEmployeeOption,
 }
