@@ -104,6 +104,40 @@ const addEmployeeOption = async () => {
     await viewEmployees();
 };
 
+const updateEmployeeRoleOption = async () => {
+
+    const employees = (await getAllEmployees()).map(employee => ({
+        name: employee.first_name + ' ' + employee.last_name,
+        value: employee.id,
+    }));
+
+    const roles = (await getAllRoles()).map(role => ({
+        name: role.title,
+        value: role.id,
+    }));
+
+    const {
+        employeeOption,
+        roleOption,
+    } = await prompt([
+        {
+            type: 'list',
+            name: 'employeeOption',
+            message: 'Select an employee to update:',
+            choices: employees
+        },
+        {
+            type: 'list',
+            name: 'roleOption',
+            message: 'Please assign a new role:',
+            choices: roles
+        }
+    ]);
+
+    await updateEmployeeRole(employeeOption, roleOption);
+    await viewEmployees();
+};
+
 module.exports = {
     viewDepartments,
     viewEmployees,
@@ -111,4 +145,5 @@ module.exports = {
     addDepartmentOption,
     addRoleOption,
     addEmployeeOption,
+    updateEmployeeRole
 }

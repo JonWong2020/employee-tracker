@@ -7,10 +7,10 @@ const getAllDepartments = () =>
     promiseQuery('SELECT * FROM department');
 
 const getAllEmployees = () =>
-    promiseQuery('SELECT employee.first_name, employee.last_name, role.title AS role, employee.manager_id FROM employee LEFT JOIN role ON employee.role_id = role_id');
+    promiseQuery('SELECT employee.id, employee.first_name, employee.last_name, role.title AS role, employee.manager_id FROM employee LEFT JOIN role ON employee.role_id = role_id');
 
 const getAllRoles = () =>
-    promiseQuery('SELECT role.title, role.salary, department.name As department_name FROM role LEFT JOIN department ON role.department_id = department.id');
+    promiseQuery('SELECT role.id, role.title, role.salary, department.name As department_name FROM role LEFT JOIN department ON role.department_id = department.id');
 
 const addDepartment = name =>
     promiseQuery('INSERT INTO department (name) VALUES (?)', [name]);
