@@ -134,7 +134,7 @@ const updateEmployeeRoleOption = async () => {
         }
     ]);
 
-    await updateEmployeeRole([employeeOption, roleOption]);
+    await updateEmployeeRole([roleOption, employeeOption]);
     await viewEmployees();
 };
 
