@@ -1,4 +1,4 @@
-const connection = require('./config/connection');
+const connection = require('../config/connection');
 
 const promiseQuery = async (queryStatement, ...args) =>
     (await connection.promise().execute(queryStatement, ...args))[0];
